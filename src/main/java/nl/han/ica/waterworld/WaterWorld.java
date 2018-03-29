@@ -90,7 +90,7 @@ public class WaterWorld extends GameEngine {
      * Initialiseert geluid
      */
     private void initializeSound() {
-        backgroundSound = new Sound(this, "src/main/java/nl/han/ica/waterworld/media/WaterWorld.mp3");
+        backgroundSound = new Sound(this, "src/main/java/nl/han/ica/waterworld/media/Waterworld.mp3");
         backgroundSound.loop(-1);
         bubblePopSound = new Sound(this, "src/main/java/nl/han/ica/waterworld/media/pop.mp3");
     }

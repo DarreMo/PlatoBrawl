@@ -17,6 +17,7 @@ import java.util.List;
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
 
     final int size=25;
+    final float gravity = 0.05f;
     private final WaterWorld world;
 
     /**
