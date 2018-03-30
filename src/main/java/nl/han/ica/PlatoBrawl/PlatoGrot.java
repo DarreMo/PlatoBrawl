@@ -109,7 +109,7 @@ public class PlatoGrot extends GameEngine {
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
-		swordfish = new Swordfish(this, tilesMap);
+		swordfish = new Swordfish(this);
         addGameObject(swordfish, 200, 200);
     }
 
@@ -153,10 +153,7 @@ public class PlatoGrot extends GameEngine {
     public PVector getSwordfishPixelLocation() {
         return new PVector(swordfish.getX() * swordfish.getWidth(), swordfish.getY() * swordfish.getHeight());
     }
-    
-    public int[][] getFishMap() {
-        return tilesMap;
-    }
+
 
 
 }
