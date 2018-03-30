@@ -14,6 +14,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.platogrot.tiles.BoardsTile;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * @author Ralph Niels
@@ -23,6 +24,28 @@ public class PlatoGrot extends GameEngine {
 
     private TextObject dashboardText;
     private Player player;
+    public Swordfish swordfish;
+    
+    int tilesMap[][]={
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1, 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0, 0,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
 
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.platogrot.PlatoGrot"});
@@ -35,8 +58,8 @@ public class PlatoGrot extends GameEngine {
     @Override
     public void setupGame() {
 
-        int worldWidth=1204;
-        int worldHeight=903;
+        int worldWidth=800;
+        int worldHeight=800;
 
         createDashboard(worldWidth, 100);
         initializeTileMap();
@@ -86,8 +109,8 @@ public class PlatoGrot extends GameEngine {
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
-        Swordfish sf=new Swordfish(this);
-        addGameObject(sf,200,200);
+		swordfish = new Swordfish(this, tilesMap);
+        addGameObject(swordfish, 200, 200);
     }
 
 
@@ -108,36 +131,31 @@ public class PlatoGrot extends GameEngine {
      */
     private void initializeTileMap() {
         /* TILES */
-        Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/platogrot/media/boards.jpg");
+    	Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/platogrot/media/boards.jpg");
         TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
+        Sprite fishSprite = new Sprite("src/main/java/nl/han/ica/platogrot/media/player.png");
+        TileType<BoardsTile> fishTileType = new TileType<>(BoardsTile.class, fishSprite);
 
-        TileType[] tileTypes = { boardTileType };
+        TileType[] tileTypes = { boardTileType, fishTileType };
         int tileSize=50;
-        int tilesMap[][]={
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0, 0,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        };
+        
         tileMap = new TileMap(tileSize, tileTypes, tilesMap);
     }
 
     @Override
     public void update() {
+    }
+
+	/**
+     * Gets the x and y location of the Swordfish.
+     * @return An PVector which contains the location of the Swordfish in Pixels.
+     */
+    public PVector getSwordfishPixelLocation() {
+        return new PVector(swordfish.getX() * swordfish.getWidth(), swordfish.getY() * swordfish.getHeight());
+    }
+    
+    public int[][] getFishMap() {
+        return tilesMap;
     }
 
 

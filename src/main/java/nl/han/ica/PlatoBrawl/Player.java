@@ -1,9 +1,11 @@
 package nl.han.ica.platogrot;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
+import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.platogrot.tiles.BoardsTile;
 import processing.core.PVector;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author Ralph Niels
  * De spelerklasse (het paarse visje)
  */
-public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
+public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 
     final int size=50;
     private final PlatoGrot world;
@@ -27,7 +29,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         super(new Sprite("src/main/java/nl/han/ica/platogrot/media/player.png"),2);
         this.world=world;
         setCurrentFrameIndex(1);
-        setFriction(0.05f);
+        setFriction(0.02f);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         if (keyCode == world.DOWN) {
             setDirectionSpeed(180, speed);
         }
-        if (key == ' ') {
+        if (key == 'b') {
             System.out.println("Spatie!");
         }
     }
@@ -98,4 +100,48 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             }
         }
     }
+
+	@Override
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		PVector vector;
+
+        for (GameObject go : collidedGameObjects) {
+            if (go instanceof Swordfish) {
+                if (getX() >= go.getX() && getX() <= go.getX() + go.getWidth() &&
+	                getY() >= go.getY() && getY() <= go.getY() + go.getHeight()	) {
+                    try {
+                        vector = world.getSwordfishPixelLocation();
+                        setY(world.getHeight()/2);
+                        setX(world.getWidth()/2);
+                        setStill();
+                        setCorrectCurrentFrameIndex(go);
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+             
+            }
+        }
+		
+	}
+	/**
+     * Kijk de vis aan
+     * @param go Referentie naar de vis
+     */
+	private void setCorrectCurrentFrameIndex(GameObject go) {
+		if (go.getCenterX() >= world.getWidth()/2) {
+			setCurrentFrameIndex(1);
+		}
+		else {
+			setCurrentFrameIndex(0);
+		}
+		
+	}
+
+	private void setStill() {
+		setSpeed(0);
+	}
+	
+    
+	
 }

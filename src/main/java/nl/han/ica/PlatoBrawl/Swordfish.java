@@ -1,8 +1,11 @@
 package nl.han.ica.platogrot;
 
+import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
+import processing.core.PVector;
 
 /**
  * @author Ralph Niels
@@ -12,13 +15,15 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 public class Swordfish extends SpriteObject {
 
     private PlatoGrot world;
+    private int[][] indexMap;
 
     /**
      * Constructor
      * @param world Referentie naar de wereld
      */
-    public Swordfish(PlatoGrot world) {
+    public Swordfish(PlatoGrot world, int[][] indexMap) {
         this(new Sprite("src/main/java/nl/han/ica/platogrot/media/swordfish.png"));
+        this.indexMap = indexMap;
         this.world=world;
     }
 
@@ -37,5 +42,21 @@ public class Swordfish extends SpriteObject {
             setX(world.getWidth());
         }
 
+    }
+    /**
+     * Gets the TileMap.
+     * @return The two dimensional int array which contains the indexes of the tileTypes.
+     */
+    public int[][] getFishMap() {
+        return indexMap;
+    }
+    
+    
+    /**
+     * Gets the x and y location of the Swordfish.
+     * @return An PVector which contains the location of the Swordfish in Pixels.
+     */
+    public PVector getSwordfishPixelLocation() {
+        return new PVector(getX() * getWidth(), getY() * getHeight());
     }
 }
