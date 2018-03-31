@@ -3,7 +3,6 @@ package nl.han.ica.PlatoBrawl;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
-import processing.core.PVector;
 
 /**
  * @author Ralph Niels
@@ -13,6 +12,7 @@ import processing.core.PVector;
 public class Swordfish extends SpriteObject {
 
     private PlatoBrawl world;
+    private int hitpoints;
 
     /**
      * Constructor
@@ -21,6 +21,7 @@ public class Swordfish extends SpriteObject {
     public Swordfish(PlatoBrawl world) {
         this(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/swordfish.png"));
         this.world=world;
+        this.hitpoints = 100;
     }
 
     /**
@@ -38,12 +39,17 @@ public class Swordfish extends SpriteObject {
             setX(world.getWidth());
         }
     }
+
     
-    /**
-     * Gets the x and y location of the Swordfish.
-     * @return An PVector which contains the location of the Swordfish in Pixels.
-     */
-    public PVector getSwordfishPixelLocation() {
-        return new PVector(getX() * getWidth(), getY() * getHeight());
+    public int getHitpoints() {
+    	return hitpoints;
+    }
+    
+    public void swordfishHit() {
+    	hitpoints--;
+    }
+    
+    public void playerHit() {
+    	hitpoints += 50;
     }
 }
