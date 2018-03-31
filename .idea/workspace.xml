@@ -27,11 +27,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TextObject.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="TextObject.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/TextObject.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+                <state relative-caret-position="136">
+                  <caret line="9" column="44" lean-forward="true" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
@@ -60,11 +60,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="PlatoBrawl.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="PlatoBrawl.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoBrawl.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="311">
-                  <caret line="114" column="63" lean-forward="false" selection-start-line="114" selection-start-column="63" selection-end-line="114" selection-end-column="63" />
+                <state relative-caret-position="243">
+                  <caret line="90" column="40" lean-forward="false" selection-start-line="90" selection-start-column="40" selection-end-line="90" selection-end-column="40" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -90,16 +90,6 @@
             <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/media/sprites/board.png">
               <provider selected="true" editor-type-id="images">
                 <state />
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Swordfish.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/Swordfish.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="561">
-                  <caret line="33" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-                  <folding />
-                </state>
               </provider>
             </entry>
           </file>
@@ -241,9 +231,9 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoGrot.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/tiles/BoardTiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/Swordfish.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoBrawl.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/TextObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoBrawl.java" />
       </list>
     </option>
   </component>
@@ -1183,14 +1173,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/Swordfish.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/OOPDProcessingEngineHAN/Tile/TileType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1230,16 +1212,6 @@
         <state relative-caret-position="136">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoBrawl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="114" column="63" lean-forward="false" selection-start-line="114" selection-start-column="63" selection-end-line="114" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1319,9 +1291,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/TextObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+        <state relative-caret-position="136">
+          <caret line="9" column="44" lean-forward="true" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/Swordfish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="47" lean-forward="true" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/han/ica/PlatoBrawl/PlatoBrawl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="90" column="40" lean-forward="false" selection-start-line="90" selection-start-column="40" selection-end-line="90" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

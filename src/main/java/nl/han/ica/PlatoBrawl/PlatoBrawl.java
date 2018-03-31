@@ -89,8 +89,6 @@ public class PlatoBrawl extends GameEngine {
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
-//        Swordfish sf = new Swordfish(this);
-//        addGameObject(sf,200,200);
     }
 
 
