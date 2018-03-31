@@ -1,4 +1,4 @@
-package nl.han.ica.platogrot;
+package nl.han.ica.PlatoBrawl;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import processing.core.PGraphics;

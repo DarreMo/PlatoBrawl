@@ -20,7 +20,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
     private final PlatoBrawl world;
 
     public Player(PlatoBrawl world) {
-        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media//sprites/Dummy.png"));
+        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"));
         this.world = world;
         setFriction(0.05f);
         setGravity(gravity);
