@@ -1,5 +1,6 @@
 package nl.han.ica.PlatoBrawl;
 
+
 import com.sun.prism.image.ViewPort;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
@@ -11,9 +12,11 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.waterworld.TextObject;
-import nl.han.ica.waterworld.tiles.BoardsTile;
+import nl.han.ica.PlatoBrawl.TextObject;
+import nl.han.ica.PlatoBrawl.Swordfish;
+import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * Created by timon on 29-3-2018.
@@ -24,6 +27,7 @@ public class PlatoBrawl extends GameEngine {
     private TextObject damageText;
     private TextObject dashboardText;
     private int damagePercentage;
+    private Swordfish swordfish;
     private Player player;
 
     public static void main(String[] args) {
@@ -33,7 +37,7 @@ public class PlatoBrawl extends GameEngine {
 
     /**
      * In deze methode worden de voor het spel
-     * noodzakelijke zaken geÃ¯nitialiseerd
+     * noodzakelijke zaken geïnitialiseerd
      */
     @Override
     public void setupGame() {
@@ -52,7 +56,7 @@ public class PlatoBrawl extends GameEngine {
     }
 
     /**
-     * CreeÃ«rt de view zonder viewport
+     * Creeërt de view zonder viewport
      * @param screenWidth Breedte van het scherm
      * @param screenHeight Hoogte van het scherm
      */
@@ -65,7 +69,7 @@ public class PlatoBrawl extends GameEngine {
     }
 
     /**
-     * CreeÃ«rt de view met viewport
+     * Creeërt de view met viewport
      * @param worldWidth Totale breedte van de wereld
      * @param worldHeight Totale hoogte van de wereld
      * @param screenWidth Breedte van het scherm
@@ -89,6 +93,8 @@ public class PlatoBrawl extends GameEngine {
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
+		swordfish = new Swordfish(this);
+        addGameObject(swordfish, 200, 200);
     }
 
 
@@ -140,7 +146,14 @@ public class PlatoBrawl extends GameEngine {
     @Override
     public void update() {
     }
+    
+    /**
+     * Gets the x and y location of the Swordfish.
+     * @return An PVector which contains the location of the Swordfish in Pixels.
+     */
+    public PVector getSwordfishPixelLocation() {
+        return new PVector(swordfish.getX() * swordfish.getWidth(), swordfish.getY() * swordfish.getHeight());
+    }
 
 
 }
-
