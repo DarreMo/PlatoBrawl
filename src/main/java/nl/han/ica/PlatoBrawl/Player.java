@@ -49,6 +49,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
     @Override
     public void keyPressed(int keyCode, char key) {
         int speed = 5;
+        //Direction based stuff toevoegen
         if (keyCode == world.LEFT) {
             setDirectionSpeed(270, speed);
         }
