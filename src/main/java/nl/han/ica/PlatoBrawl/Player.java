@@ -4,11 +4,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
+import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
@@ -51,14 +50,11 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
 
     }
+
     @Override
     public void keyPressed(int keyCode, char key) {
         int speed = 5;
-        //Direction based stuff toevoegen
-        if (keyCode == world.LEFT) {
-            setDirectionSpeed(270, speed);
-            setCurrentFrameIndex(0);
-        }
+
         if (keyCode == world.UP) {
             setDirectionSpeed(0, speed);
         }
@@ -68,6 +64,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
         if (keyCode == world.DOWN) {
             setDirectionSpeed(180, speed);
+        }
+        if (keyCode == world.LEFT) {
+            setDirectionSpeed(270, speed);
+            setCurrentFrameIndex(0);
         }
         if (key == ' ') {
             System.out.println("Spatie!");
@@ -79,7 +79,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         PVector vector;
 
         for (CollidedTile ct : collidedTiles) {
-            if (ct.theTile instanceof BoardsTile) {
+            if (ct.theTile instanceof BoardTiles) {
                 if (ct.collisionSide == ct.TOP) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
