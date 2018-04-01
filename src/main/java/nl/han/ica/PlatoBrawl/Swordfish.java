@@ -13,6 +13,7 @@ public class Swordfish extends SpriteObject {
 
     private PlatoBrawl world;
     private int hitpoints;
+    private HealthBar healthbar;
 
     /**
      * Constructor
@@ -22,6 +23,7 @@ public class Swordfish extends SpriteObject {
         this(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/swordfish.png"));
         this.world=world;
         this.hitpoints = 100;
+        setHealthBar();
     }
 
     /**
@@ -38,6 +40,25 @@ public class Swordfish extends SpriteObject {
         if (getX()+getWidth()<=0) {
             setX(world.getWidth());
         }
+        updateHealthBar();
+    }
+    
+    private void updateHealthBar() {
+    	healthbar.setX(getCenterX() - (healthbar.getWidth()/2));
+    	healthbar.setY(getY() - 50);
+    	if (hitpoints >= 100) {
+    		healthbar.setCurrentFrameIndex(0);
+    	}
+    	if (hitpoints < 100) {
+    		healthbar.setCurrentFrameIndex(1);
+    	}
+    }
+    
+    
+    private void setHealthBar() {
+    	HealthBar h = new HealthBar(getX(), getY());
+        world.addGameObject(h);
+        this.healthbar = h;
     }
 
     
