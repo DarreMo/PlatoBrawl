@@ -7,7 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
+import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
@@ -18,7 +18,10 @@ import java.util.List;
  * Created by timon on 29-3-2018.
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
-
+	
+	private boolean shootAnimation = false;
+	long previousTime;
+	final int animationTime = 100;
     final int size = 25;
     final float gravity = 0.05f;
     private final PlatoBrawl world;
@@ -26,70 +29,64 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 
 
     public Player(PlatoBrawl world) {
-        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 2);
+        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 4);
         this.world = world;
         setCurrentFrameIndex(1);
         setFriction(0.05f);
         setGravity(gravity);
     }
 
-<<<<<<< HEAD
-    @Override
-    public void update() {
-        if (getX()<=0) {
-            setxSpeed(0);
-            setX(0);
-        }
-        if (getY()<=0) {
-            setySpeed(0);
-            setY(0);
-        }
-        if (getX()>=world.getWidth()-size) {
-            setxSpeed(0);
-            setX(world.getWidth() - size);
-        }
-        if (getY()>=world.getHeight()-size) {
-            setySpeed(0);
-            setY(world.getHeight() - size);
-        }
-
-    }
-
-=======
     
->>>>>>> 5ba4553b7c5e042f804c8c33d20e1dc1a5ec4069
     @Override
     public void keyPressed(int keyCode, char key) {
         int speed = 5;
-
-        if (keyCode == world.UP) {
-            setDirectionSpeed(0, speed);
+        //Direction based stuff toevoegen
+        if (keyCode == world.LEFT) {
+        	setDirectionSpeed(270, speed);
+        	setCurrentFrameIndex(0);
         }
         if (keyCode == world.RIGHT) {
-            setDirectionSpeed(90, speed);
-            setCurrentFrameIndex(1);
+        	setDirectionSpeed(90, speed);
+        	setCurrentFrameIndex(1);
+        }
+        if (keyCode == world.UP) {
+        	setDirectionSpeed(0, speed);
         }
         if (keyCode == world.DOWN) {
-            setDirectionSpeed(180, speed);
-        }
-        if (keyCode == world.LEFT) {
-            setDirectionSpeed(270, speed);
-            setCurrentFrameIndex(0);
+        	setDirectionSpeed(180, speed);
         }
         if (key == ' ') {
         	shootBullet();
+        	shootingAnimation();
         }
     }
 
+	private void shootingAnimation() {
+    	shootAnimation = true;
+    	setCorrectShootingFrame();
+    	previousTime = System.currentTimeMillis();
+	}
+
+
+	private void setCorrectShootingFrame() {
+		if (getCurrentFrameIndex() == 0) {
+    		setCurrentFrameIndex(2);
+    	}
+    	else {
+    		setCurrentFrameIndex(3);
+    	}
+	}
+
+
 	private void shootBullet() {
 		if (getCurrentFrameIndex() == 0) {
-			Bullet b = new Bullet(world, -5);
-	    	world.addGameObject(b, getX(), getY());
+			Bullet b = new Bullet(world, -5, 1);
+	    	world.addGameObject(b, getX() - getWidth(), getY());
 			bulletList.add(b);
 		}
     	if (getCurrentFrameIndex() == 1) {
-    		Bullet b = new Bullet(world, 5);
-        	world.addGameObject(b, getX(), getY());
+    		Bullet b = new Bullet(world, 5, 0);
+        	world.addGameObject(b, getX() + getWidth(), getY());
     		bulletList.add(b);
     	}   	
 	}
@@ -114,11 +111,11 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         PVector vector;
 
         for (CollidedTile ct : collidedTiles) {
-            if (ct.theTile instanceof BoardTiles) {
+            if (ct.theTile instanceof BoardsTile) {
                 if (ct.collisionSide == ct.TOP) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-                        setY(vector.y - getHeight());
+                        setY(vector.y - getHeight() - 2); // Dit omdat hij anders niet goed beweegt
                     } catch (TileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -176,7 +173,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	
 	@Override
     public void update() {
-        if (getX()<=0) {
+        long currentTime = System.currentTimeMillis();
+		if (getX()<=0) {
             setxSpeed(0);
             setX(0);
         }
@@ -192,7 +190,18 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             setySpeed(0);
             setY(world.getHeight() - size);
         }
-
+        if (shootAnimation == true) {
+        	if (currentTime - previousTime >= animationTime) {
+            	if (getCurrentFrameIndex() == 2) {
+        			setCurrentFrameIndex(0);
+        			shootAnimation = false;
+            	}
+            	if (getCurrentFrameIndex() == 3) {
+        			setCurrentFrameIndex(1);
+        			shootAnimation = false;
+            	}
+            }
+        }
     }
 
 }

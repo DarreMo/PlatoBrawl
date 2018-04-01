@@ -4,12 +4,16 @@ import com.sun.prism.image.ViewPort;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
+import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
+import nl.han.ica.PlatoBrawl.TextObject;
+import nl.han.ica.PlatoBrawl.Swordfish;
+import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -32,7 +36,7 @@ public class PlatoBrawl extends GameEngine {
 
     /**
      * In deze methode worden de voor het spel
-     * noodzakelijke zaken geï¿½nitialiseerd
+     * noodzakelijke zaken geïnitialiseerd
      */
     @Override
     public void setupGame() {
@@ -48,7 +52,7 @@ public class PlatoBrawl extends GameEngine {
     }
 
     /**
-     * Creeï¿½rt de view zonder viewport
+     * Creeërt de view zonder viewport
      * @param screenWidth Breedte van het scherm
      * @param screenHeight Hoogte van het scherm
      */
@@ -59,10 +63,10 @@ public class PlatoBrawl extends GameEngine {
         setView(view);
         size(screenWidth, screenHeight);
     }
-
-<<<<<<< HEAD
+    
+ 
     /**
-     * Creeï¿½rt de view met viewport
+     * Creert de view met viewport
      * @param worldWidth Totale breedte van de wereld
      * @param worldHeight Totale hoogte van de wereld
      * @param screenWidth Breedte van het scherm
@@ -78,9 +82,6 @@ public class PlatoBrawl extends GameEngine {
         view.setBackground(loadImage("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/background.jpg"));
     }
 
-
-=======
->>>>>>> 5ba4553b7c5e042f804c8c33d20e1dc1a5ec4069
 
     /**
      * Maakt de spelobjecten aan
@@ -111,7 +112,7 @@ public class PlatoBrawl extends GameEngine {
     private void initializeTileMap() {
         /* TILES */
         Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/board.png");
-        TileType<BoardTiles> boardTileType = new TileType<>(BoardTiles.class, boardsSprite);
+        TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
 
         TileType[] tileTypes = { boardTileType };
         int tileSize=40;

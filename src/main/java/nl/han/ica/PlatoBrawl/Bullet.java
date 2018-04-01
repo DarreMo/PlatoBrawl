@@ -3,19 +3,20 @@ import java.util.List;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 
-public class Bullet extends SpriteObject implements ICollidableWithGameObjects {
+public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 
     private final PlatoBrawl world;
 	
 	
-	public Bullet (PlatoBrawl world, float x) {
-        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"));
+	public Bullet (PlatoBrawl world, float x, int f) {
+        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Bullet.png"), 2);
 		this.world = world;
 		setxSpeed(x);
+		setCurrentFrameIndex(f);
 	}
 
 	
