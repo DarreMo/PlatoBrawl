@@ -9,25 +9,24 @@ import processing.core.PGraphics;
  */
 public class TextObject extends GameObject {
 
-    private String text;
+    private Swordfish swordfish;
 
-    public TextObject(String text) {
-        this.text=text;
-    }
-
-    public void setText(String text) {
-        this.text=text;
-    }
+    public TextObject(Swordfish swordfish) {
+        this.swordfish = swordfish;
+    }    
 
     @Override
     public void update() {
-
+    }
+    
+    public int getSwordfishHitpoints() {
+    	return swordfish.getHitpoints();
     }
 
     @Override
     public void draw(PGraphics g) {
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text("Scorebord!", getX() + 20, getY() + 20);
+        g.text(getSwordfishHitpoints(), getX() + 20, getY() + 20);
     }
 }

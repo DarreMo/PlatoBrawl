@@ -11,6 +11,7 @@ import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     final int size = 25;
     final float gravity = 0.05f;
     private final PlatoBrawl world;
+	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+
 
     public Player(PlatoBrawl world) {
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 2);
@@ -30,6 +33,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         setGravity(gravity);
     }
 
+<<<<<<< HEAD
     @Override
     public void update() {
         if (getX()<=0) {
@@ -51,6 +55,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 
     }
 
+=======
+    
+>>>>>>> 5ba4553b7c5e042f804c8c33d20e1dc1a5ec4069
     @Override
     public void keyPressed(int keyCode, char key) {
         int speed = 5;
@@ -70,64 +77,24 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             setCurrentFrameIndex(0);
         }
         if (key == ' ') {
-            System.out.println("Spatie!");
+        	shootBullet();
         }
     }
 
-    @Override
-    public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
-        PVector vector;
-
-        for (CollidedTile ct : collidedTiles) {
-            if (ct.theTile instanceof BoardTiles) {
-                if (ct.collisionSide == ct.TOP) {
-                    try {
-                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-                        setY(vector.y - getHeight());
-                    } catch (TileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (ct.collisionSide == ct.RIGHT) {
-                    try {
-                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-                        world.getTileMap().setTile((int) vector.x / 50, (int) vector.y / 50, -1);
-                    } catch (TileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    @Override
-	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		PVector vector;
-
-        for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
-                if (getX() >= go.getX() && getX() <= go.getX() + go.getWidth() &&
-	                getY() >= go.getY() && getY() <= go.getY() + go.getHeight()	) {
-                    try {
-                        vector = world.getSwordfishPixelLocation();
-                        setY(world.getHeight()/2);
-                        setX(world.getWidth()/2);
-                        setStill();
-                        setCorrectCurrentFrameIndex(go);
-                    } catch (TileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-             
-            }
-        }
-		
+	private void shootBullet() {
+		if (getCurrentFrameIndex() == 0) {
+			Bullet b = new Bullet(world, -5);
+	    	world.addGameObject(b, getX(), getY());
+			bulletList.add(b);
+		}
+    	if (getCurrentFrameIndex() == 1) {
+    		Bullet b = new Bullet(world, 5);
+        	world.addGameObject(b, getX(), getY());
+    		bulletList.add(b);
+    	}   	
 	}
-	/**
-     * Kijk de vis aan
-     * @param go Referentie naar de vis
-     */
+	
+	
 	private void setCorrectCurrentFrameIndex(GameObject go) {
 		if (go.getCenterX() >= world.getWidth()/2) {
 			setCurrentFrameIndex(1);
@@ -141,5 +108,91 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private void setStill() {
 		setSpeed(0);
 	}
+
+	@Override
+    public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
+        PVector vector;
+
+        for (CollidedTile ct : collidedTiles) {
+            if (ct.theTile instanceof BoardTiles) {
+                if (ct.collisionSide == ct.TOP) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setY(vector.y - getHeight());
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ct.collisionSide == ct.BOTTOM) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setySpeed(0);
+                        setY(vector.y + ct.theTile.getSprite().getHeight());
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ct.collisionSide == ct.LEFT) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setxSpeed(0);
+                        setX(vector.x - 1 - getWidth());
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ct.collisionSide == ct.RIGHT) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setxSpeed(0);
+                        setX(vector.x + 1 + ct.theTile.getSprite().getWidth());
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    @Override
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+
+        for (GameObject go : collidedGameObjects) {
+            if (go instanceof Swordfish) {
+            	try {
+                    setY(world.getHeight()/2);
+                    setX(world.getWidth()/2);
+                    setStill();
+                    ((Swordfish) go).playerHit();
+                    setCorrectCurrentFrameIndex(go);
+                } catch (TileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+		
+	}
+	
+	@Override
+    public void update() {
+        if (getX()<=0) {
+            setxSpeed(0);
+            setX(0);
+        }
+        if (getY()<=0) {
+            setySpeed(0);
+            setY(0);
+        }
+        if (getX()>=world.getWidth()-size) {
+            setxSpeed(0);
+            setX(world.getWidth() - size);
+        }
+        if (getY()>=world.getHeight()-size) {
+            setySpeed(0);
+            setY(world.getHeight() - size);
+        }
+
+    }
 
 }
