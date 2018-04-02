@@ -11,7 +11,6 @@ import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +18,12 @@ import java.util.List;
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	
-	private boolean shootAnimation = false;
-	long previousTime;
+	private boolean isShooting = false;
+	long animationStart;
 	final int animationTime = 100;
     final int size = 25;
     final float gravity = 0.05f;
     private final PlatoBrawl world;
-	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 
 
     public Player(PlatoBrawl world) {
@@ -62,9 +60,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     }
 
 	private void shootingAnimation() {
-    	shootAnimation = true;
+    	isShooting = true;
     	setCorrectShootingFrame();
-    	previousTime = System.currentTimeMillis();
+    	animationStart = System.currentTimeMillis();
 	}
 
 
@@ -82,12 +80,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		if (getCurrentFrameIndex() == 0) {
 			Bullet b = new Bullet(world, -5, 1);
 	    	world.addGameObject(b, getX() - getWidth(), getY());
-			bulletList.add(b);
 		}
     	if (getCurrentFrameIndex() == 1) {
     		Bullet b = new Bullet(world, 5, 0);
         	world.addGameObject(b, getX() + getWidth(), getY());
-    		bulletList.add(b);
     	}   	
 	}
 	
@@ -173,7 +169,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	
 	@Override
     public void update() {
-        long currentTime = System.currentTimeMillis();
 		if (getX()<=0) {
             setxSpeed(0);
             setX(0);
@@ -190,15 +185,16 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             setySpeed(0);
             setY(world.getHeight() - size);
         }
-        if (shootAnimation == true) {
-        	if (currentTime - previousTime >= animationTime) {
+        if (isShooting == true) {
+        	long currentTime = System.currentTimeMillis();
+        	if (currentTime - animationStart >= animationTime) {
             	if (getCurrentFrameIndex() == 2) {
         			setCurrentFrameIndex(0);
-        			shootAnimation = false;
+        			isShooting = false;
             	}
             	if (getCurrentFrameIndex() == 3) {
         			setCurrentFrameIndex(1);
-        			shootAnimation = false;
+        			isShooting = false;
             	}
             }
         }

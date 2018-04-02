@@ -10,7 +10,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameObjects {
 
     private final PlatoBrawl world;
-	
+	private final int size = 25;
 	
 	public Bullet (PlatoBrawl world, float x, int f) {
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Bullet.png"), 2);
@@ -41,7 +41,7 @@ public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameO
 		if (getX() >= world.getWidth()) {
             world.deleteGameObject(this);
         }
-		if (getX() <= 0) {
+		if (getX() <= 0 - size) {
             world.deleteGameObject(this);
         }
 		

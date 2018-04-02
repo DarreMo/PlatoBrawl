@@ -8,25 +8,21 @@ import processing.core.PGraphics;
  * Wordt gebruikt om een tekst te kunnen afbeelden
  */
 public class TextObject extends GameObject {
+	
+	private PlatoBrawl world;
 
-    private Swordfish swordfish;
-
-    public TextObject(Swordfish swordfish) {
-        this.swordfish = swordfish;
+    public TextObject(PlatoBrawl world) {
+    	this.world = world;
     }    
 
     @Override
     public void update() {
-    }
-    
-    public int getSwordfishHitpoints() {
-    	return swordfish.getHitpoints();
     }
 
     @Override
     public void draw(PGraphics g) {
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text(getSwordfishHitpoints(), getX() + 20, getY() + 20);
+        g.text(world.round, getX() + 20, getY() + 20);
     }
 }
