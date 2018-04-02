@@ -22,7 +22,7 @@ public class Swordfish extends SpriteObject {
     public Swordfish(PlatoBrawl world) {
         this(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/swordfish.png"));
         this.world=world;
-        this.hitpoints = 100;
+        this.hitpoints = 10;
         setHealthBar();
     }
 
@@ -33,44 +33,60 @@ public class Swordfish extends SpriteObject {
     private Swordfish(Sprite sprite) {
         super(sprite);
         setxSpeed(-1);
+        int random = (int )(Math.random() * 4 + 1);
+        setySpeed(random);
     }
 
     @Override
     public void update() {
-        if (getX()+getWidth()<=0) {
+        if (getX() + getWidth() <= 0) {
             setX(world.getWidth());
         }
-        updateHealthBar();
+        if (getY() + getHeight() <= 0) {
+            setY(world.getHeight());
+        }
+        if (getY() >= world.getHeight()) {
+            setY(0 - getHeight());
+        }
+        if (hitpoints <= 0) {
+        	world.deleteGameObject(this);
+        	world.deleteGameObject(healthbar);
+        	world.numberOfSwordfish--;
+        	if (world.numberOfSwordfish == 0) {
+        		nextRound();
+        	}
+        }
     }
-    
-    private void updateHealthBar() {
-    	healthbar.setX(getCenterX() - (healthbar.getWidth()/2));
-    	healthbar.setY(getY() - 50);
-    	if (hitpoints >= 100) {
-    		healthbar.setCurrentFrameIndex(0);
-    	}
-    	if (hitpoints < 100) {
-    		healthbar.setCurrentFrameIndex(1);
-    	}
-    }
-    
+  
     
     private void setHealthBar() {
-    	HealthBar h = new HealthBar(getX(), getY());
+    	HealthBar h = new HealthBar(this);
         world.addGameObject(h);
         this.healthbar = h;
     }
-
     
+    private void nextRound() {
+    	world.round++;
+    	world.numberOfSwordfish = world.round;
+    	for (int i = 0; i < world.numberOfSwordfish; i++) {
+    		Swordfish swordfish = new Swordfish(world);
+    		int random = (int )(Math.random() * 200 + 100);
+    		world.addGameObject(swordfish, random, random);
+    	}
+    }
+    
+
     public int getHitpoints() {
     	return hitpoints;
     }
+    
     
     public void swordfishHit() {
     	hitpoints--;
     }
     
     public void playerHit() {
-    	hitpoints += 50;
+    	hitpoints = 10;
     }
+
 }

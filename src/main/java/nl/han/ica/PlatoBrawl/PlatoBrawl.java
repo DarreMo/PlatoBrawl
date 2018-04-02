@@ -24,10 +24,13 @@ public class PlatoBrawl extends GameEngine {
 
     private Sound backgroundSound;
     private TextObject damageText;
-    private TextObject dashboardText; // Dit is voor nu de hitpoints van de zwaardvis
+    private TextObject dashboardText; // Dit is nu de ronde van de game
     private int damagePercentage;
     private Swordfish swordfish;
     private Player player;
+    public int round; 
+    public int numberOfSwordfish;
+
 
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.PlatoBrawl.PlatoBrawl"});
@@ -89,8 +92,10 @@ public class PlatoBrawl extends GameEngine {
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
+        round++;
 		swordfish = new Swordfish(this);
         addGameObject(swordfish, 200, 200);
+        numberOfSwordfish++;
     }
 
 
@@ -101,7 +106,7 @@ public class PlatoBrawl extends GameEngine {
      */
     private void createDashboard(int dashboardWidth,int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0,0, dashboardWidth, dashboardHeight);
-        dashboardText = new TextObject(swordfish);
+        dashboardText = new TextObject(this);
         dashboard.addGameObject(dashboardText);
         addDashboard(dashboard);
     }
