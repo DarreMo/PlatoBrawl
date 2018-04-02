@@ -13,7 +13,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.PlatoBrawl.TextObject;
 import nl.han.ica.PlatoBrawl.Swordfish;
-import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
+import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -36,7 +36,7 @@ public class PlatoBrawl extends GameEngine {
 
     /**
      * In deze methode worden de voor het spel
-     * noodzakelijke zaken geïnitialiseerd
+     * noodzakelijke zaken geï¿½nitialiseerd
      */
     @Override
     public void setupGame() {
@@ -52,7 +52,7 @@ public class PlatoBrawl extends GameEngine {
     }
 
     /**
-     * Creeërt de view zonder viewport
+     * Creeï¿½rt de view zonder viewport
      * @param screenWidth Breedte van het scherm
      * @param screenHeight Hoogte van het scherm
      */
@@ -112,7 +112,7 @@ public class PlatoBrawl extends GameEngine {
     private void initializeTileMap() {
         /* TILES */
         Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/board.png");
-        TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
+        TileType<BoardTiles> boardTileType = new TileType<>(BoardTiles.class, boardsSprite);
 
         TileType[] tileTypes = { boardTileType };
         int tileSize=40;

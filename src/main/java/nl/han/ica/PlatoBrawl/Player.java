@@ -7,7 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
+import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
@@ -32,7 +32,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 4);
         this.world = world;
         setCurrentFrameIndex(1);
-        setFriction(0.05f);
+        setFriction(0.01f);
         setGravity(gravity);
     }
 
@@ -42,18 +42,18 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         int speed = 5;
         //Direction based stuff toevoegen
         if (keyCode == world.LEFT) {
-        	setDirectionSpeed(270, speed);
+        	setxSpeed(-speed);
         	setCurrentFrameIndex(0);
         }
         if (keyCode == world.RIGHT) {
-        	setDirectionSpeed(90, speed);
+        	setxSpeed(speed);
         	setCurrentFrameIndex(1);
         }
         if (keyCode == world.UP) {
-        	setDirectionSpeed(0, speed);
+        	setySpeed(-speed);
         }
         if (keyCode == world.DOWN) {
-        	setDirectionSpeed(180, speed);
+        	setySpeed(speed);
         }
         if (key == ' ') {
         	shootBullet();
@@ -111,7 +111,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         PVector vector;
 
         for (CollidedTile ct : collidedTiles) {
-            if (ct.theTile instanceof BoardsTile) {
+            if (ct.theTile instanceof BoardTiles) {
                 if (ct.collisionSide == ct.TOP) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
