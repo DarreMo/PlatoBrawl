@@ -28,6 +28,6 @@ public class TextObject extends GameObject {
         g.text(world.round, getX() + 20, getY() + 20);
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text(player.getHitpoints(), getX() + 500, getY() + 20);
+        g.text((int) player.getHitpoints(), 610, getY() + 20);
     }
 }

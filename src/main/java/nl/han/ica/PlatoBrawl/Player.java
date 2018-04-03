@@ -11,6 +11,7 @@ import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,14 +19,19 @@ import java.util.List;
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	
+	private boolean gotPowerUp = false;
+	private boolean gotBulletUp = false;
 	private boolean isShooting = false;
 	private boolean isBumping = false;
-	long animationStart;
+	private long animationStart;
+    protected float hitpoints;
 	final int animationTime = 100;
     final int size = 25;
     final float gravity = 0.05f;
     private final PlatoBrawl world;
-    protected float hitpoints;
+    private PlayerBullet b;
+    private SuperBullet sb;
+    private ArrayList<Bullet> bulletList = new ArrayList<>();
 
 
     public Player(PlatoBrawl world) {
@@ -97,14 +103,30 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     
     
     private void shootBullet() {
-		if (getCurrentFrameIndex() == 0) {
-			Bullet b = new Bullet(world, -5, 1);
-	    	world.addGameObject(b, getX() - getWidth(), getY());
-		}
-    	if (getCurrentFrameIndex() == 1) {
-    		Bullet b = new Bullet(world, 5, 0);
-        	world.addGameObject(b, getX() + getWidth(), getY());
-    	}   	
+    	if (!gotBulletUp) {
+			if (getCurrentFrameIndex() == 0) {
+				b = new PlayerBullet(this, world, -5, 1);
+		    	world.addGameObject(b, getX() - getWidth(), getY());
+		    	bulletList.add(b);
+			}
+	    	if (getCurrentFrameIndex() == 1) {
+	    		b = new PlayerBullet(this, world, 5, 0);
+	        	world.addGameObject(b, getX() + getWidth(), getY());
+	        	bulletList.add(b);
+	    	}  
+    	}
+    	if (gotBulletUp) {
+			if (getCurrentFrameIndex() == 0) {
+				sb = new SuperBullet(this, world, -5, 1);
+		    	world.addGameObject(sb, getX() - getWidth(), getY());
+		    	bulletList.add(sb);
+			}
+	    	if (getCurrentFrameIndex() == 1) {
+	    		sb = new SuperBullet(this, world, 5, 0);
+	        	world.addGameObject(sb, getX() + getWidth(), getY());
+	        	bulletList.add(sb);
+	    	}  
+    	}
 	}
 
 	private void shootingAnimation() {
@@ -138,6 +160,23 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	
 	public void bulletHit() {
 		hitpoints--;
+	}
+	
+	public void newRound() {
+		hitpoints =  10;
+		if (gotPowerUp) {
+			hitpoints = 20;
+		}
+		setSpeed(0);
+		setX(800);
+		setY(400);
+		deleteBullets();
+	}
+	
+	private void deleteBullets() {
+		for (Bullet b : bulletList) {
+			world.deleteGameObject(b);
+		}
 	}
 	
 
@@ -190,7 +229,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 
         for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
+        	if (go instanceof Swordfish) {
             	if (isBumping == true) {
             		try { 
             			((Swordfish) go).playerHit(getCenterX());
@@ -198,29 +237,28 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             			e.printStackTrace();
             		}
             	}
-            }		
-        }
+            }	
+        	if (go instanceof PowerUp) {
+            	try { 
+            		this.hitpoints = 20;
+            		gotPowerUp = true;
+           		} catch (TileNotFoundException e) {
+           			e.printStackTrace();
+           		}
+            }
+        	if (go instanceof BulletUp) {
+            	try { 
+            		gotBulletUp = true;
+           		} catch (TileNotFoundException e) {
+           			e.printStackTrace();
+           		}
+            }
+        }	
     }
+     
     
-    private void setCorrectCurrentFrameIndex(GameObject go) {
-		if (go.getCenterX() >= world.getWidth()/2) {
-			setCurrentFrameIndex(1);
-		}
-		else {
-			setCurrentFrameIndex(0);
-		}		
-	}
-
-	private void setStill() {
-		setSpeed(0);
-	}
-	
 	public float getHitpoints() {
 		return hitpoints;
-	}
-	
-	public void newRound() {
-		hitpoints =  10;
 	}
 
 }
