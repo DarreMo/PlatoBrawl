@@ -1,4 +1,5 @@
 package nl.han.ica.PlatoBrawl;
+
 import java.util.List;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
@@ -7,13 +8,13 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
-public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameObjects {
-
-    private final PlatoBrawl world;
+public class EnemyBullet extends AnimatedSpriteObject implements ICollidableWithGameObjects {
+	   
+	private final PlatoBrawl world;
 	private final int size = 25;
 	
-	public Bullet (PlatoBrawl world, float x, int f) {
-        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Bullet.png"), 2);
+	public EnemyBullet (PlatoBrawl world, float x, int f) {
+        super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/EnemyBullet.png"), 2);
 		this.world = world;
 		setxSpeed(x);
 		setCurrentFrameIndex(f);
@@ -23,17 +24,16 @@ public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameO
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
+            if (go instanceof Player) {
             	try {
                     world.deleteGameObject(this);
-                    ((Swordfish) go).bulletHit();
+                    ((Player) go).bulletHit();
                 } catch (TileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
 	}
-
 
 	@Override
 	public void update() {
@@ -46,3 +46,4 @@ public class Bullet extends AnimatedSpriteObject implements ICollidableWithGameO
 	}
 	
 }
+

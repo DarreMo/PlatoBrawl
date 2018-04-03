@@ -106,7 +106,7 @@ public class PlatoBrawl extends GameEngine {
      */
     private void createDashboard(int dashboardWidth,int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0,0, dashboardWidth, dashboardHeight);
-        dashboardText = new TextObject(this);
+        dashboardText = new TextObject(this, player);
         dashboard.addGameObject(dashboardText);
         addDashboard(dashboard);
     }
@@ -146,6 +146,11 @@ public class PlatoBrawl extends GameEngine {
 
     @Override
     public void update() {
+    }
+    
+    public void nextRound() {
+    	round++;
+    	player.newRound();
     }
 
 }
