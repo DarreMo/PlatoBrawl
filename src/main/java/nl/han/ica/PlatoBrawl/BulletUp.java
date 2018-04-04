@@ -1,6 +1,5 @@
 package nl.han.ica.PlatoBrawl;
 
-
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
 public class BulletUp extends PowerUp  {

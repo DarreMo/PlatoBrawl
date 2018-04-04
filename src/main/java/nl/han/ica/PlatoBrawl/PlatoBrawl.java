@@ -19,6 +19,7 @@ import processing.core.PVector;
 
 /**
  * Created by timon on 29-3-2018.
+ * Worked on by: Timon & Jeffrey
  */
 public class PlatoBrawl extends GameEngine {
 
