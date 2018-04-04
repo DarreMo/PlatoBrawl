@@ -22,7 +22,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private boolean gotPowerUp = false;
 	private boolean gotBulletUp = false;
 	private boolean isShooting = false;
-	private boolean isBumping = false;
 	private long animationStart;
     protected float hitpoints;
 	final int animationTime = 100;
@@ -66,16 +65,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         	shootBullet();
         	shootingAnimation();
         }
-        if (key == 'g') {
-        	isBumping = true;
-        }
-    }
-    
-    @Override
-    public void keyReleased(int keyCode, char key) {
-    	if(key == 'g') {
-    		isBumping = false;
-    	}
     }
     
     @Override
@@ -98,6 +87,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
         if (isShooting == true) {
         	isShooting();
+        }
+        if (hitpoints <= 0) {
+        	newGame();
         }
     }
     
@@ -230,13 +222,20 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 
         for (GameObject go : collidedGameObjects) {
         	if (go instanceof Swordfish) {
-            	if (isBumping == true) {
-            		try { 
-            			((Swordfish) go).playerHit(getCenterX());
+            	try {
+            		if (go.getCenterX() >= 440 && go.getCenterX() <= 840) {
+            			setX(150);
+            			setY(world.getHeight()/2);
+            			hitpoints-=3;
+            		}
+            		else {
+            			setX(world.getWidth()/2);
+            			setY(world.getHeight()/2);
+            			hitpoints-=3;
+            		}
             		} catch (TileNotFoundException e) {
             			e.printStackTrace();
             		}
-            	}
             }	
         	if (go instanceof PowerUp) {
             	try { 
@@ -259,6 +258,16 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     
 	public float getHitpoints() {
 		return hitpoints;
+	}
+	
+	
+	private void newGame() {
+		world.round = 0;
+		world.deleteAllGameOBjects();
+		world.deleteAllDashboards();
+		RestartButton rb = new RestartButton(world);
+		world.addGameObject(rb, world.getWidth()/2, world.getHeight()/2);
+		
 	}
 
 }

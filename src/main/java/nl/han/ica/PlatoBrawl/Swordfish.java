@@ -15,7 +15,6 @@ public class Swordfish extends AnimatedSpriteObject {
     private HealthBar healthbar;
     private Player player;
     private int hitpoints;
-    private boolean gotHit = false;
     private boolean isAlive = true;
 
     /**
@@ -46,28 +45,16 @@ public class Swordfish extends AnimatedSpriteObject {
     	if (getX() <= 0) {
         	setxSpeed(1);
         	setCurrentFrameIndex(0);
-        	if (gotHit == true) {
-        		die();        
-        	}
         }
     	if (getX() + getWidth() >= world.getWidth()) {
         	setxSpeed(-1);
         	setCurrentFrameIndex(1);
-        	if (gotHit == true) {
-        		die();        
-        	}
         }
         if (getY() <= 0) {
         	setySpeed(2);
-        	if (gotHit == true) {
-        		die();        
-        	}
         }
         if (getY() + getHeight() >= world.getHeight()) {
         	setySpeed(-2);
-        	if (gotHit == true) {
-        		die();        
-        	}
         }
         if (hitpoints <= 0) {
         	die();
@@ -153,17 +140,7 @@ public class Swordfish extends AnimatedSpriteObject {
     }
     
     public void superBulletHit() {
-		hitpoints-=5;		
+		hitpoints-=3;		
 	}
-    
-    public void playerHit(float x) {
-    	gotHit = true;
-    	if (x >= getCenterX()) {
-    		setxSpeed(-10);
-    	}
-    	if (x < getCenterX()) {
-    		setxSpeed(10);
-    	}
-    }
 
 }
