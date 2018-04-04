@@ -8,7 +8,7 @@ public class BulletUp extends PowerUp implements ICollidableWithGameObjects{
 	
 	
 	public BulletUp(PlatoBrawl world) {
-		super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/boards.jpg"), world);
+		super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/board.jpg"), world);
 	}
 
 	@Override
