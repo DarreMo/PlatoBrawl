@@ -21,7 +21,7 @@ import processing.core.PVector;
  * Created by timon on 29-3-2018.
  */
 public class PlatoBrawl extends GameEngine {
-    
+
     private Sound backgroundSound;
 
     private TextObject dashboardText; // Dit is nu de ronde van de game
