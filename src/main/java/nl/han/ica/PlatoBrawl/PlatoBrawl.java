@@ -23,9 +23,7 @@ import processing.core.PVector;
 public class PlatoBrawl extends GameEngine {
 
     private Sound backgroundSound;
-    private TextObject damageText;
     private TextObject dashboardText; // Dit is nu de ronde van de game
-    private int damagePercentage;
     private Swordfish swordfish;
     private Player player;
     public int round; 
@@ -39,7 +37,7 @@ public class PlatoBrawl extends GameEngine {
 
     /**
      * In deze methode worden de voor het spel
-     * noodzakelijke zaken ge�nitialiseerd
+     * noodzakelijke zaken geïnitialiseerd
      */
     @Override
     public void setupGame() {
