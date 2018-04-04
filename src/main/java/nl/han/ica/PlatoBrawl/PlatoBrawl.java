@@ -21,11 +21,9 @@ import processing.core.PVector;
  * Created by timon on 29-3-2018.
  */
 public class PlatoBrawl extends GameEngine {
-
-<<<<<<< HEAD
+    
     private Sound backgroundSound;
-=======
->>>>>>> feca0d455068b45d94dd25725fe04e96d81ce4f2
+
     private TextObject dashboardText; // Dit is nu de ronde van de game
     private Swordfish swordfish;
     private Player player;
