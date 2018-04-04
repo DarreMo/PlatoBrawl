@@ -7,7 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
+import nl.han.ica.PlatoBrawl.tiles.BoardsTile;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
@@ -16,17 +16,18 @@ import java.util.List;
 
 /**
  * Created by timon on 29-3-2018.
+ * Edited by: Jeffrey & Timon
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	
-	private boolean gotPowerUp = false;
-	private boolean gotBulletUp = false;
-	private boolean isShooting = false;
+	private boolean gotHitpointsUp;
+	private boolean gotBulletUp;
+	private boolean isShooting;
 	private long animationStart;
     protected float hitpoints;
-	final int animationTime = 100;
-    final int size = 25;
-    final float gravity = 0.05f;
+	private final int animationTime = 100;
+    private final int size = 25;
+    private final float gravity = 0.05f;
     private final PlatoBrawl world;
     private PlayerBullet b;
     private SuperBullet sb;
@@ -37,7 +38,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 4);
         this.world = world;
         setCurrentFrameIndex(1);
-        setFriction(0.01f);
+        setFriction(0.05f);
         setGravity(gravity);
         this.hitpoints = 10;
     }
@@ -52,14 +53,14 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         	setCurrentFrameIndex(0);
         }
         if (keyCode == world.RIGHT) {
-        	setxSpeed(speed);
+        	setDirectionSpeed(90, speed);
         	setCurrentFrameIndex(1);
         }
         if (keyCode == world.UP) {
         	setySpeed(-speed);
         }
         if (keyCode == world.DOWN) {
-        	setySpeed(speed);
+        	setDirectionSpeed(180, speed);
         }
         if (key == ' ') {
         	shootBullet();
@@ -156,11 +157,11 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	
 	public void newRound() {
 		hitpoints =  10;
-		if (gotPowerUp) {
+		if (gotHitpointsUp) {
 			hitpoints = 20;
 		}
 		setSpeed(0);
-		setX(800);
+		setX(900);
 		setY(400);
 		deleteBullets();
 	}
@@ -177,7 +178,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         PVector vector;
 
         for (CollidedTile ct : collidedTiles) {
-            if (ct.theTile instanceof BoardTiles) {
+            if (ct.theTile instanceof BoardsTile) {
                 if (ct.collisionSide == ct.TOP) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
@@ -226,21 +227,21 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             		if (go.getCenterX() >= 440 && go.getCenterX() <= 840) {
             			setX(150);
             			setY(world.getHeight()/2);
-            			hitpoints-=3;
+            			hitpoints-=5;
             		}
             		else {
             			setX(world.getWidth()/2);
             			setY(world.getHeight()/2);
-            			hitpoints-=3;
+            			hitpoints-=5;
             		}
             		} catch (TileNotFoundException e) {
             			e.printStackTrace();
             		}
             }	
-        	if (go instanceof PowerUp) {
+        	if (go instanceof HitpointsUp) {
             	try { 
             		this.hitpoints = 20;
-            		gotPowerUp = true;
+            		gotHitpointsUp = true;
            		} catch (TileNotFoundException e) {
            			e.printStackTrace();
            		}
@@ -266,7 +267,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		world.deleteAllGameOBjects();
 		world.deleteAllDashboards();
 		RestartButton rb = new RestartButton(world);
-		world.addGameObject(rb, world.getWidth()/2, world.getHeight()/2);
+		world.addGameObject(rb, (world.getWidth()/2 - rb.getWidth()/2), (world.getHeight()/2 - rb.getHeight()/2));
 		
 	}
 

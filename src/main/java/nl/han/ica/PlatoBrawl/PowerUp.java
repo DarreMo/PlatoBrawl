@@ -8,6 +8,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 
+/**
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
+ */
 public class PowerUp extends SpriteObject implements ICollidableWithGameObjects{
 	
 	protected PlatoBrawl world;

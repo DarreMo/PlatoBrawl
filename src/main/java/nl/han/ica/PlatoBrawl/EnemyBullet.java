@@ -7,9 +7,13 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
+/**
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
+ */
 public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
 
-	Swordfish swordfish;
+	private Swordfish swordfish;
 	
 	public EnemyBullet (Swordfish swordfish, PlatoBrawl world, float x, int f) {
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/EnemyBullet.png"), 2, world, 25);

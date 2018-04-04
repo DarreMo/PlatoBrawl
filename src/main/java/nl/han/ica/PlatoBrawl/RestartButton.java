@@ -3,12 +3,16 @@ package nl.han.ica.PlatoBrawl;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 
+/**
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
+ */
 public class RestartButton extends SpriteObject {
 	
 	PlatoBrawl world;
 	
 	public RestartButton(PlatoBrawl world) {
-		super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/boards.jpg"));
+		super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/RestartButton.png"));
 		this.world = world;
 	}
 

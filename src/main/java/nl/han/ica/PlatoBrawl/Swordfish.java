@@ -1,13 +1,11 @@
 package nl.han.ica.PlatoBrawl;
 
-
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
 /**
- * @author Ralph Niels
- * Een zwaardvis is een spelobject dat zelfstandig
- * door de wereld beweegt
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
  */
 public class Swordfish extends AnimatedSpriteObject {
 
@@ -17,10 +15,6 @@ public class Swordfish extends AnimatedSpriteObject {
     private int hitpoints;
     private boolean isAlive = true;
 
-    /**
-     * Constructor
-     * @param world Referentie naar de wereld
-     */
     public Swordfish(PlatoBrawl world, Player player) {
         this(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/swordfish.png"));
         this.world=world;
@@ -28,14 +22,13 @@ public class Swordfish extends AnimatedSpriteObject {
         this.player = player;
         setHealthBar();
         setCurrentFrameIndex(1);
-        setxSpeed(-world.round);
+        setxSpeed(-1);
+        if (world.round >= 20) {
+    		setxSpeed(-2);
+    	}
         setySpeed(2);
     }
 
-    /**
-     * Maak een Swordfish aan met een sprite
-     * @param sprite De sprite die aan dit object gekoppeld moet worden
-     */
     private Swordfish(Sprite sprite) {
         super(sprite, 2);
     }
@@ -45,10 +38,16 @@ public class Swordfish extends AnimatedSpriteObject {
     	if (getX() <= 0) {
         	setxSpeed(1);
         	setCurrentFrameIndex(0);
+        	if (world.round >= 20) {
+        		setxSpeed(2);
+        	}
         }
     	if (getX() + getWidth() >= world.getWidth()) {
         	setxSpeed(-1);
         	setCurrentFrameIndex(1);
+        	if (world.round >= 20) {
+        		setxSpeed(-2);
+        	}
         }
         if (getY() <= 0) {
         	setySpeed(2);
@@ -64,18 +63,18 @@ public class Swordfish extends AnimatedSpriteObject {
         	shoot();
         	}
         }
-        if (world.round >= 10 && world.round < 20) {
+        if (world.round >= 10 && world.round < 15) {
         	if (getCenterX()%80 == 0) {
         	shoot();
         	}
         }
-        if (world.round >= 20) {
+        if (world.round >= 15 && world.round < 25) {
         	if (getCenterX()%60 == 0) {
         	shoot();
         	}
         }
     }
-  
+      
     
     private void setHealthBar() {
     	HealthBar h = new HealthBar(this);
@@ -98,7 +97,7 @@ public class Swordfish extends AnimatedSpriteObject {
     	world.numberOfSwordfish = world.round;
     	for (int i = 0; i < world.numberOfSwordfish; i++) {
     		Swordfish swordfish = new Swordfish(world, player);
-    		int random = (int )(Math.random() * 300 + 100);
+    		int random = (int )(Math.random() * 400 + 100);
     		world.addGameObject(swordfish, random, random);
     	}
     }

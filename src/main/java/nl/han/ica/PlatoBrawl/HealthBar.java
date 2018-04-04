@@ -3,6 +3,10 @@ package nl.han.ica.PlatoBrawl;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
+/**
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Timon
+ */
 public class HealthBar extends AnimatedSpriteObject {
 	
 	private Swordfish swordfish;
