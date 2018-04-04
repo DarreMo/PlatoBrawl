@@ -91,7 +91,7 @@ public class PlatoBrawl extends GameEngine {
         player = new Player(this);
         addGameObject(player, 100, 100);
         round++;
-		swordfish = new Swordfish(this);
+		swordfish = new Swordfish(this, player);
         addGameObject(swordfish, 200, 200);
         numberOfSwordfish++;
     }
@@ -104,7 +104,7 @@ public class PlatoBrawl extends GameEngine {
      */
     private void createDashboard(int dashboardWidth,int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0,0, dashboardWidth, dashboardHeight);
-        dashboardText = new TextObject(this);
+        dashboardText = new TextObject(this, player);
         dashboard.addGameObject(dashboardText);
         addDashboard(dashboard);
     }
@@ -144,6 +144,19 @@ public class PlatoBrawl extends GameEngine {
 
     @Override
     public void update() {
+    }
+    
+    public void nextRound() {
+    	round++;
+    	player.newRound();
+    	if (round == 8) {
+    		PowerUp pu = new HitpointsUp(this);
+    		addGameObject(pu, getWidth()/2 - pu.getWidth()/2, 150);
+    	}
+    	if (round == 13) {
+    		BulletUp bu = new BulletUp(this);
+    		addGameObject(bu, getWidth()/2 - bu.getWidth()/2, 150);
+    	}
     }
 
 }

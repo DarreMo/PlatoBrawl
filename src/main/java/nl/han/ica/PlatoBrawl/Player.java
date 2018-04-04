@@ -11,6 +11,7 @@ import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +19,19 @@ import java.util.List;
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	
+	private boolean gotPowerUp = false;
+	private boolean gotBulletUp = false;
 	private boolean isShooting = false;
-	long animationStart;
+	private boolean isBumping = false;
+	private long animationStart;
+    protected float hitpoints;
 	final int animationTime = 100;
     final int size = 25;
     final float gravity = 0.05f;
     private final PlatoBrawl world;
+    private PlayerBullet b;
+    private SuperBullet sb;
+    private ArrayList<Bullet> bulletList = new ArrayList<>();
 
 
     public Player(PlatoBrawl world) {
@@ -32,6 +40,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         setCurrentFrameIndex(1);
         setFriction(0.01f);
         setGravity(gravity);
+        this.hitpoints = 10;
     }
 
     
@@ -57,14 +66,74 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         	shootBullet();
         	shootingAnimation();
         }
+        if (key == 'g') {
+        	isBumping = true;
+        }
     }
+    
+    @Override
+    public void keyReleased(int keyCode, char key) {
+    	if(key == 'g') {
+    		isBumping = false;
+    	}
+    }
+    
+    @Override
+    public void update() {
+		if (getX()<=0) {
+            setxSpeed(0);
+            setX(0);
+        }
+        if (getY()<=0) {
+            setySpeed(0);
+            setY(0);
+        }
+        if (getX()>=world.getWidth()-size) {
+            setxSpeed(0);
+            setX(world.getWidth() - size);
+        }
+        if (getY()>=world.getHeight()-size) {
+            setySpeed(0);
+            setY(world.getHeight() - size);
+        }
+        if (isShooting == true) {
+        	isShooting();
+        }
+    }
+    
+    
+    private void shootBullet() {
+    	if (!gotBulletUp) {
+			if (getCurrentFrameIndex() == 0) {
+				b = new PlayerBullet(this, world, -5, 1);
+		    	world.addGameObject(b, getX() - getWidth(), getY());
+		    	bulletList.add(b);
+			}
+	    	if (getCurrentFrameIndex() == 1) {
+	    		b = new PlayerBullet(this, world, 5, 0);
+	        	world.addGameObject(b, getX() + getWidth(), getY());
+	        	bulletList.add(b);
+	    	}  
+    	}
+    	if (gotBulletUp) {
+			if (getCurrentFrameIndex() == 0) {
+				sb = new SuperBullet(this, world, -5, 1);
+		    	world.addGameObject(sb, getX() - getWidth(), getY());
+		    	bulletList.add(sb);
+			}
+	    	if (getCurrentFrameIndex() == 1) {
+	    		sb = new SuperBullet(this, world, 5, 0);
+	        	world.addGameObject(sb, getX() + getWidth(), getY());
+	        	bulletList.add(sb);
+	    	}  
+    	}
+	}
 
 	private void shootingAnimation() {
     	isShooting = true;
     	setCorrectShootingFrame();
     	animationStart = System.currentTimeMillis();
 	}
-
 
 	private void setCorrectShootingFrame() {
 		if (getCurrentFrameIndex() == 0) {
@@ -74,33 +143,42 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     		setCurrentFrameIndex(3);
     	}
 	}
-
-
-	private void shootBullet() {
-		if (getCurrentFrameIndex() == 0) {
-			Bullet b = new Bullet(world, -5, 1);
-	    	world.addGameObject(b, getX() - getWidth(), getY());
-		}
-    	if (getCurrentFrameIndex() == 1) {
-    		Bullet b = new Bullet(world, 5, 0);
-        	world.addGameObject(b, getX() + getWidth(), getY());
-    	}   	
+	
+	private void isShooting() {
+		long currentTime = System.currentTimeMillis();
+    	if (currentTime - animationStart >= animationTime) {
+        	if (getCurrentFrameIndex() == 2) {
+    			setCurrentFrameIndex(0);
+    			isShooting = false;
+        	}
+        	if (getCurrentFrameIndex() == 3) {
+    			setCurrentFrameIndex(1);
+    			isShooting = false;
+        	}
+        }
 	}
 	
-	
-	private void setCorrectCurrentFrameIndex(GameObject go) {
-		if (go.getCenterX() >= world.getWidth()/2) {
-			setCurrentFrameIndex(1);
-		}
-		else {
-			setCurrentFrameIndex(0);
-		}
-		
+	public void bulletHit() {
+		hitpoints--;
 	}
-
-	private void setStill() {
+	
+	public void newRound() {
+		hitpoints =  10;
+		if (gotPowerUp) {
+			hitpoints = 20;
+		}
 		setSpeed(0);
+		setX(800);
+		setY(400);
+		deleteBullets();
 	}
+	
+	private void deleteBullets() {
+		for (Bullet b : bulletList) {
+			world.deleteGameObject(b);
+		}
+	}
+	
 
 	@Override
     public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
@@ -147,57 +225,40 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
     }
     
-    
     @Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 
         for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
-            	try {
-                    setY(world.getHeight()/2);
-                    setX(world.getWidth()/2);
-                    setStill();
-                    ((Swordfish) go).playerHit();
-                    setCorrectCurrentFrameIndex(go);
-                } catch (TileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-		
-	}
-	
-	@Override
-    public void update() {
-		if (getX()<=0) {
-            setxSpeed(0);
-            setX(0);
-        }
-        if (getY()<=0) {
-            setySpeed(0);
-            setY(0);
-        }
-        if (getX()>=world.getWidth()-size) {
-            setxSpeed(0);
-            setX(world.getWidth() - size);
-        }
-        if (getY()>=world.getHeight()-size) {
-            setySpeed(0);
-            setY(world.getHeight() - size);
-        }
-        if (isShooting == true) {
-        	long currentTime = System.currentTimeMillis();
-        	if (currentTime - animationStart >= animationTime) {
-            	if (getCurrentFrameIndex() == 2) {
-        			setCurrentFrameIndex(0);
-        			isShooting = false;
+        	if (go instanceof Swordfish) {
+            	if (isBumping == true) {
+            		try { 
+            			((Swordfish) go).playerHit(getCenterX());
+            		} catch (TileNotFoundException e) {
+            			e.printStackTrace();
+            		}
             	}
-            	if (getCurrentFrameIndex() == 3) {
-        			setCurrentFrameIndex(1);
-        			isShooting = false;
-            	}
+            }	
+        	if (go instanceof PowerUp) {
+            	try { 
+            		this.hitpoints = 20;
+            		gotPowerUp = true;
+           		} catch (TileNotFoundException e) {
+           			e.printStackTrace();
+           		}
             }
-        }
+        	if (go instanceof BulletUp) {
+            	try { 
+            		gotBulletUp = true;
+           		} catch (TileNotFoundException e) {
+           			e.printStackTrace();
+           		}
+            }
+        }	
     }
+     
+    
+	public float getHitpoints() {
+		return hitpoints;
+	}
 
 }

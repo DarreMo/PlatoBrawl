@@ -10,9 +10,11 @@ import processing.core.PGraphics;
 public class TextObject extends GameObject {
 	
 	private PlatoBrawl world;
+	private Player player;
 
-    public TextObject(PlatoBrawl world) {
+    public TextObject(PlatoBrawl world, Player player) {
     	this.world = world;
+    	this.player = player;
     }    
 
     @Override
@@ -24,5 +26,8 @@ public class TextObject extends GameObject {
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
         g.text(world.round, getX() + 20, getY() + 20);
+        g.textAlign(g.LEFT,g.TOP);
+        g.textSize(50);
+        g.text((int) player.getHitpoints(), 610, getY() + 20);
     }
 }
