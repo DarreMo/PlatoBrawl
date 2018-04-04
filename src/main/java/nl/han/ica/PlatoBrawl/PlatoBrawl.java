@@ -22,10 +22,7 @@ import processing.core.PVector;
  */
 public class PlatoBrawl extends GameEngine {
 
-    private Sound backgroundSound;
-    private TextObject damageText;
     private TextObject dashboardText; // Dit is nu de ronde van de game
-    private int damagePercentage;
     private Swordfish swordfish;
     private Player player;
     public int round; 

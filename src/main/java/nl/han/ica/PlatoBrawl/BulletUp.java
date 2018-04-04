@@ -1,10 +1,9 @@
 package nl.han.ica.PlatoBrawl;
 
 
-import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
-public class BulletUp extends PowerUp implements ICollidableWithGameObjects{
+public class BulletUp extends PowerUp  {
 	
 	
 	public BulletUp(PlatoBrawl world) {
