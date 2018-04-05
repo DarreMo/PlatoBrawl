@@ -26,7 +26,6 @@ public class PlatoBrawl extends GameEngine {
     private Player player;
     public int round; 
     public int enemyAmmount;
-    public int record = 1;
 
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.PlatoBrawl.PlatoBrawl"});
@@ -115,9 +114,7 @@ public class PlatoBrawl extends GameEngine {
     public void nextRound() {
     	round++;
     	player.newRound ();
-    	if (round > record) {
-    		record++;
-    	}
+
     	if (round == 2 ) {
     		PowerUp pu = new HitpointsUp(this);
     		addGameObject(pu, getWidth()/2 - pu.getWidth()/2, 150);

@@ -5,9 +5,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.PlatoBrawl.Player;
 
 /**
- * @author Ralph Niels
- * Een Enemy is een spelobject dat zelfstandig
- * door de wereld beweegt
+ * created by: Timon 29-03-2018
+ * Edited by: Jeffrey & Timon
  */
 public class Enemy extends AnimatedSpriteObject {
 
