@@ -18,7 +18,10 @@ public class Bullet extends AnimatedSpriteObject {
 		this.size = size;
 	}
 
-
+    /**
+     * Wanneer de Bullet uit scherm gaat wordt hij verwijdert
+     * @param world Referentie naar de wereld
+     */
 	@Override
 	public void update() {
 		if (getX() >= world.getWidth()) {

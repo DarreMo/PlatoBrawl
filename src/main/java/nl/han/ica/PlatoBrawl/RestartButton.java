@@ -21,11 +21,16 @@ public class RestartButton extends SpriteObject {
 		
 	}
 	
+	
+	/**
+     * keyPressed
+     * Wanneer op 'r' wordt gedrukt begint een nieuwe game
+     */
     public void keyPressed(int keyCode, char key) {
 		if (key == 'r') {
 			world.deleteGameObject(this);
 			world.round = 0;
-			world.enemyAmmount = 0;
+			world.enemyAmount = 0;
 			world.setupGame();
 		}
 	}

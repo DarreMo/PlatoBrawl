@@ -15,21 +15,24 @@ public class TextObject extends GameObject {
     public TextObject(PlatoBrawl world, Player player) {
     	this.world = world;
     	this.player = player;
-    }    
+    }
 
     @Override
     public void update() {
     }
-
+    
+    
+    /**
+     * Draw
+     * Tekent de huidige ronde en de hitpoints van Player
+     */
     @Override
     public void draw(PGraphics g) {
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text(world.round, getX() + 20, getY() + 20);
+        g.text("Round: " + world.round, getX() + 50, getY() + 20);
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text((int) player.getHitpoints(), 610, getY() + 20);
-        g.textAlign(g.LEFT,g.TOP);
-        g.textSize(50);
+        g.text("Hitpoints: " + (int) player.getHitpoints(), 900, getY() + 20);
     }
 }

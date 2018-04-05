@@ -67,6 +67,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
     }
     
+    
+    /**
+     * De Speler kan niet het scherm uit en sterft bij 0 hitpoints
+     */
     @Override
     public void update() {
 		if (getX()<=0) {
@@ -94,6 +98,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     }
     
     
+    /**
+     * Schietmethode met 'Player' of 'Super' Bullet
+     */    
     private void shootBullet() {
     	if (!gotBulletUp) {
 			if (getCurrentFrameIndex() == 0) {
@@ -120,13 +127,19 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	    	}  
     	}
 	}
-
+    
+    /**
+     * Schietanimatie
+     */
 	private void shootingAnimation() {
     	isShooting = true;
     	setCorrectShootingFrame();
     	animationStart = System.currentTimeMillis();
 	}
-
+	
+	/**
+     * Zorgt ervoor dat de speler de correcte kant op kijkt
+     */
 	private void setCorrectShootingFrame() {
 		if (getCurrentFrameIndex() == 0) {
     		setCurrentFrameIndex(2);
@@ -136,6 +149,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     	}
 	}
 	
+	/**
+     * Zet de speler in de goede positie nadat de schietanimatie is afgelopen
+     */
 	private void isShooting() {
 		long currentTime = System.currentTimeMillis();
     	if (currentTime - animationStart >= animationTime) {
@@ -150,10 +166,16 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
 	}
 	
+	/**
+     * De speler wordt geraakt door een kogel en verliest levens
+     */
 	public void bulletHit() {
 		hitpoints--;
 	}
 	
+	/**
+     * Nieuwe ronde
+     */	
 	public void newRound() {
 		hitpoints =  10;
 		if (gotHitpointsUp) {
@@ -165,6 +187,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		deleteBullets();
 	}
 	
+	
+	/**
+     * Verwijder kogels bij nieuwe ronde
+     */
 	private void deleteBullets() {
 		for (Bullet b : bulletList) {
 			world.deleteGameObject(b);
@@ -255,12 +281,18 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }	
     }
      
-    
+    /**
+     * get Hitpoints
+     */
 	public float getHitpoints() {
 		return hitpoints;
 	}
 	
 	
+	/**
+     * De speler is dood en een nieuwe Game begint wanneer hij op 'r' drukt
+     * @param world Referentie naar de wereld
+     */	
 	private void newGame() {
 		world.round = 0;
 		world.deleteAllGameOBjects();

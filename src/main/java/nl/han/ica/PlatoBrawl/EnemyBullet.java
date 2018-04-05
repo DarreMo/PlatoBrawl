@@ -23,7 +23,9 @@ public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
 		this.enemy = enemy;
 	}
 	
-	
+	/**
+     * Wanneer een EnemyBullet een Player hit verliest de Player levens
+     */
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {
@@ -37,7 +39,11 @@ public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
             }
         }
 	}
-
+	
+	
+	/**
+     * Wanneer de Enemy die deze kogel schoot dood gaat worden ook zijn kogels verwijdert
+     */
 	@Override
 	public void update() {
 		if (enemy.getAlive() == false) {
@@ -46,4 +52,3 @@ public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
 	}
 	
 }
-
