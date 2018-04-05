@@ -40,7 +40,6 @@ public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
         }
 	}
 	
-	
 	/**
      * Wanneer de Enemy die deze kogel schoot dood gaat worden ook zijn kogels verwijdert
      */

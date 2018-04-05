@@ -20,8 +20,7 @@ public class TextObject extends GameObject {
     @Override
     public void update() {
     }
-    
-    
+
     /**
      * Draw
      * Tekent de huidige ronde en de hitpoints van Player

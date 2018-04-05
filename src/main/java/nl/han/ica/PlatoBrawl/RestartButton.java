@@ -21,7 +21,6 @@ public class RestartButton extends SpriteObject {
 		
 	}
 	
-	
 	/**
      * keyPressed
      * Wanneer op 'r' wordt gedrukt begint een nieuwe game

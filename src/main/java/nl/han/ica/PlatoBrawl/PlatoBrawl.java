@@ -110,8 +110,7 @@ public class PlatoBrawl extends GameEngine {
     @Override
     public void update() {
     }
-    
-    
+
     /**
      * Wordt gedraait wanneer volgende ronde start
      */    

@@ -42,11 +42,13 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         this.hitpoints = 10;
     }
 
-    
+    /**
+	 * Player movement with arrowkeys
+    */
+
     @Override
     public void keyPressed(int keyCode, char key) {
         int speed = 5;
-        //Direction based stuff toevoegen
         if (keyCode == world.LEFT) {
         	setxSpeed(-speed);
         	setCurrentFrameIndex(0);
@@ -96,8 +98,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         	newGame();
         }
     }
-    
-    
+
     /**
      * Schietmethode met 'Player' of 'Super' Bullet
      */    
@@ -186,8 +187,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		setY(400);
 		deleteBullets();
 	}
-	
-	
+
 	/**
      * Verwijder kogels bij nieuwe ronde
      */
@@ -196,7 +196,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 			world.deleteGameObject(b);
 		}
 	}
-	
 
 	@Override
     public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
@@ -287,8 +286,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	public float getHitpoints() {
 		return hitpoints;
 	}
-	
-	
+
 	/**
      * De speler is dood en een nieuwe Game begint wanneer hij op 'r' drukt
      * @param world Referentie naar de wereld

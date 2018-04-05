@@ -19,7 +19,6 @@ public class PlayerBullet extends Bullet implements ICollidableWithGameObjects {
 		setCurrentFrameIndex(f);
 	}
 	
-	
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {
@@ -33,7 +32,6 @@ public class PlayerBullet extends Bullet implements ICollidableWithGameObjects {
             }
         }
 	}
-
 
 	@Override
 	public void update() {	}
