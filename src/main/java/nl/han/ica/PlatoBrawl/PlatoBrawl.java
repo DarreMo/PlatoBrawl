@@ -37,7 +37,7 @@ public class PlatoBrawl extends GameEngine {
         int worldWidth=1280;
         int worldHeight=720;
         
-        createObjects(); // createObjecs moet eerst
+        createObjects();
         createDashboard(worldWidth, 100);
         initializeTileMap();
 
