@@ -1,12 +1,12 @@
 package nl.han.ica.PlatoBrawl;
 
-
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.PlatoBrawl.Player;
 
 /**
  * @author Ralph Niels
- * Een zwaardvis is een spelobject dat zelfstandig
+ * Een Enemy is een spelobject dat zelfstandig
  * door de wereld beweegt
  */
 public class Enemy extends AnimatedSpriteObject {

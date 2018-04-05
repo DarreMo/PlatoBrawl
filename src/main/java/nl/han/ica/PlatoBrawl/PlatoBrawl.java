@@ -9,11 +9,13 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
+import nl.han.ica.PlatoBrawl.TextObject;
+import nl.han.ica.PlatoBrawl.Enemy;
 import processing.core.PApplet;
 
 /**
  * Created by timon on 29-3-2018.
- * Worked on by: Timon & Jeffrey
+ * Edited by: Jeffrey & Timon
  */
 public class PlatoBrawl extends GameEngine {
 
@@ -24,17 +26,12 @@ public class PlatoBrawl extends GameEngine {
     private Player player;
     public int round; 
     public int enemyAmmount;
-
+    public int record = 1;
 
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.PlatoBrawl.PlatoBrawl"});
     }
 
-
-    /**
-     * In deze methode worden de voor het spel
-     * noodzakelijke zaken geïnitialiseerd
-     */
     @Override
     public void setupGame() {
 
@@ -48,11 +45,6 @@ public class PlatoBrawl extends GameEngine {
         createViewWithoutViewport(worldWidth, worldHeight);
     }
 
-    /**
-     * Cree�rt de view zonder viewport
-     * @param screenWidth Breedte van het scherm
-     * @param screenHeight Hoogte van het scherm
-     */
     private void createViewWithoutViewport(int screenWidth, int screenHeight) {
         View view = new View(screenWidth,screenHeight);
         view.setBackground(loadImage("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/background.jpg"));
@@ -60,16 +52,7 @@ public class PlatoBrawl extends GameEngine {
         setView(view);
         size(screenWidth, screenHeight);
     }
-    
- 
-    /**
-     * Creert de view met viewport
-     * @param worldWidth Totale breedte van de wereld
-     * @param worldHeight Totale hoogte van de wereld
-     * @param screenWidth Breedte van het scherm
-     * @param screenHeight Hoogte van het scherm
-     * @param zoomFactor Factor waarmee wordt ingezoomd
-     */
+
     private void createViewWithViewport(int worldWidth,int worldHeight,int screenWidth,int screenHeight,float zoomFactor) {
         EdgeFollowingViewport viewPort = new EdgeFollowingViewport(player, (int)Math.ceil(screenWidth/zoomFactor),(int)Math.ceil(screenHeight/zoomFactor),0,0);
         viewPort.setTolerance(50, 50, 50, 50);
@@ -79,10 +62,6 @@ public class PlatoBrawl extends GameEngine {
         view.setBackground(loadImage("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/background.jpg"));
     }
 
-
-    /**
-     * Maakt de spelobjecten aan
-     */
     private void createObjects() {
         player = new Player(this);
         addGameObject(player, 100, 100);
@@ -92,12 +71,6 @@ public class PlatoBrawl extends GameEngine {
         enemyAmmount++;
     }
 
-
-    /**
-     * Maakt het dashboard aan
-     * @param dashboardWidth Gewenste breedte van dashboard
-     * @param dashboardHeight Gewenste hoogte van dashboard
-     */
     private void createDashboard(int dashboardWidth,int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0,0, dashboardWidth, dashboardHeight);
         dashboardText = new TextObject(this, player);
@@ -105,9 +78,6 @@ public class PlatoBrawl extends GameEngine {
         addDashboard(dashboard);
     }
 
-    /**
-     * Initialiseert de tilemap
-     */
     private void initializeTileMap() {
         /* TILES */
         Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/board.png");
@@ -144,12 +114,15 @@ public class PlatoBrawl extends GameEngine {
     
     public void nextRound() {
     	round++;
-    	player.newRound();
-    	if (round == 8) {
+    	player.newRound ();
+    	if (round > record) {
+    		record++;
+    	}
+    	if (round == 2 ) {
     		PowerUp pu = new HitpointsUp(this);
     		addGameObject(pu, getWidth()/2 - pu.getWidth()/2, 150);
     	}
-    	if (round == 13) {
+    	if (round == 4) {
     		BulletUp bu = new BulletUp(this);
     		addGameObject(bu, getWidth()/2 - bu.getWidth()/2, 150);
     	}

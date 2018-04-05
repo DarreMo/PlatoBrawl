@@ -7,6 +7,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
+/**
+ * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
+ */
 public class PlayerBullet extends Bullet implements ICollidableWithGameObjects {
 
 	public PlayerBullet (Player player, PlatoBrawl world, float x, int f) {
