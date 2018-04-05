@@ -14,7 +14,7 @@ import nl.han.ica.PlatoBrawl.Enemy;
 import processing.core.PApplet;
 
 /**
- * Created by timon on 29-3-2018.
+ * Created by Timon on 29-3-2018.
  * Edited by: Jeffrey & Timon
  */
 public class PlatoBrawl extends GameEngine {

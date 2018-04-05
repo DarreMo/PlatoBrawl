@@ -31,6 +31,5 @@ public class TextObject extends GameObject {
         g.text((int) player.getHitpoints(), 610, getY() + 20);
         g.textAlign(g.LEFT,g.TOP);
         g.textSize(50);
-        g.text("record: "+world.record, 910, getY() + 20);
     }
 }

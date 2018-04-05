@@ -4,7 +4,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 
 /**
- * Created by timon on 30-3-2018.
+ * Created by Timon on 30-3-2018.
  */
 public class BoardTiles extends Tile{
 
