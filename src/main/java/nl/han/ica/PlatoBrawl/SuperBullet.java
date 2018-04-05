@@ -20,6 +20,10 @@ public class SuperBullet extends Bullet implements ICollidableWithGameObjects {
 	}
 	
 	
+	/**
+     * ObjectCollision
+     * Wanneer een SuperBullet collide met een Enemy verliest deze 4 hitpoints
+     */
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {

@@ -14,18 +14,18 @@ import nl.han.ica.PlatoBrawl.Enemy;
 import processing.core.PApplet;
 
 /**
- * Created by Timon on 29-3-2018.
+ * Created by timon on 29-3-2018.
  * Edited by: Jeffrey & Timon
  */
 public class PlatoBrawl extends GameEngine {
 
     private Sound backgroundSound;
 
-    private TextObject dashboardText; // Dit is nu de ronde van de game
+    private TextObject dashboardText; 
     private Enemy enemy;
     private Player player;
     public int round; 
-    public int enemyAmmount;
+    public int enemyAmount;
 
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.PlatoBrawl.PlatoBrawl"});
@@ -67,7 +67,7 @@ public class PlatoBrawl extends GameEngine {
         round++;
 		enemy = new Enemy(this, player);
         addGameObject(enemy, 200, 200);
-        enemyAmmount++;
+        enemyAmount++;
     }
 
     private void createDashboard(int dashboardWidth,int dashboardHeight) {
@@ -111,10 +111,13 @@ public class PlatoBrawl extends GameEngine {
     public void update() {
     }
     
+    
+    /**
+     * Wordt gedraait wanneer volgende ronde start
+     */    
     public void nextRound() {
     	round++;
     	player.newRound ();
-
     	if (round == 2 ) {
     		PowerUp pu = new HitpointsUp(this);
     		addGameObject(pu, getWidth()/2 - pu.getWidth()/2, 150);

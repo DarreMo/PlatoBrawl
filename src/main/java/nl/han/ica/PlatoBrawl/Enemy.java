@@ -5,7 +5,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.PlatoBrawl.Player;
 
 /**
- * created by: Timon 29-03-2018
+ * Created by timon on 29-3-2018.
  * Edited by: Jeffrey & Timon
  */
 public class Enemy extends AnimatedSpriteObject {
@@ -75,33 +75,47 @@ public class Enemy extends AnimatedSpriteObject {
         }
     }
   
-    
+    /**
+     * Maakt een nieuwe HealthBar aan voor de Enemy
+     */
     private void setHealthBar() {
     	HealthBar h = new HealthBar(this);
         world.addGameObject(h);
         this.healthbar = h;
     }
     
+    
+    /**
+     * Gaat dood en wordt verwijdert
+     * @param world Referentie naar de wereld
+     */
     private void die() {
     	isAlive = false;
     	world.deleteGameObject(this);
     	world.deleteGameObject(healthbar);
-    	world.enemyAmmount--;
-    	if (world.enemyAmmount == 0) {
+    	world.enemyAmount--;
+    	if (world.enemyAmount == 0) {
     		nextRound();
     	}
     }
     
+    /**
+     * Volgende ronde wordt gestart
+     */
     private void nextRound() {
     	world.nextRound();
-    	world.enemyAmmount = world.round;
-    	for (int i = 0; i < world.enemyAmmount; i++) {
+    	world.enemyAmount = world.round;
+    	for (int i = 0; i < world.enemyAmount; i++) {
     		Enemy enemy = new Enemy(world, player);
     		int random = (int )(Math.random() * 300 + 100);
     		world.addGameObject(enemy, random, random);
     	}
     }
     
+    /**
+     * Schietmethode
+     * Na ronde 5 schieten de Enemies op de speler ipv naar voren
+     */
     public void shoot() {
     	if (world.round < 5) {
 	    	if (getxSpeed() <= 0) {
@@ -126,6 +140,9 @@ public class Enemy extends AnimatedSpriteObject {
     	}
     }
     
+    
+    
+    
     public int getHitpoints() {
     	return hitpoints;
     }   
@@ -134,10 +151,17 @@ public class Enemy extends AnimatedSpriteObject {
     	return isAlive;
     }
     
+    
+    /**
+     * De enemy wordt geraakt met een bullet
+     */
     public void bulletHit() {
     	hitpoints--;
     }
     
+    /**
+     * De enemy wordt geraakt met een SuperBullet en verliest meer levens
+     */
     public void superBulletHit() {
 		hitpoints-=3;		
 	}

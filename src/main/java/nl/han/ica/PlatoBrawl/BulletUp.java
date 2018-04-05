@@ -4,6 +4,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
 /**
  * Created by Jeffrey on 29-3-2018.
+ * Edited by: Jeffrey & Timon
  */
 public class BulletUp extends PowerUp  {
 	
