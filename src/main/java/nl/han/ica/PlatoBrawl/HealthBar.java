@@ -5,21 +5,21 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
 public class HealthBar extends AnimatedSpriteObject {
 	
-	private Swordfish swordfish;
+	private Enemy enemy;
 
-	public HealthBar (Swordfish swordfish) {
+	public HealthBar (Enemy enemy) {
 		super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/Dummy.png"), 2);
-		this.swordfish = swordfish;
+		this.enemy = enemy;
 	}
 
 	@Override
 	public void update() {
-		setX(swordfish.getCenterX() - (getWidth()/2));
-    	setY(swordfish.getY() - 50);
-    	if (swordfish.getHitpoints() >= 10) {
+		setX(enemy.getCenterX() - (getWidth()/2));
+    	setY(enemy.getY() - 50);
+    	if (enemy.getHitpoints() >= 10) {
     		setCurrentFrameIndex(0);
     	}
-    	if (swordfish.getHitpoints() < 10) {
+    	if (enemy.getHitpoints() < 10) {
     		setCurrentFrameIndex(1);
     	}
 	}

@@ -8,7 +8,6 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
-import nl.han.ica.PlatoBrawl.Swordfish;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -221,7 +220,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 
         for (GameObject go : collidedGameObjects) {
-        	if (go instanceof Swordfish) {
+        	if (go instanceof Enemy) {
             	try {
             		if (go.getCenterX() >= 440 && go.getCenterX() <= 840) {
             			setX(150);

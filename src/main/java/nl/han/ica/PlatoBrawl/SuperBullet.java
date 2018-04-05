@@ -19,10 +19,10 @@ public class SuperBullet extends Bullet implements ICollidableWithGameObjects {
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
+            if (go instanceof Enemy) {
             	try {
                     world.deleteGameObject(this);
-                    ((Swordfish) go).superBulletHit();
+                    ((Enemy) go).superBulletHit();
                 } catch (TileNotFoundException e) {
                     e.printStackTrace();
                 }

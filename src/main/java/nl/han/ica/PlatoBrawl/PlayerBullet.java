@@ -19,10 +19,10 @@ public class PlayerBullet extends Bullet implements ICollidableWithGameObjects {
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
         for (GameObject go : collidedGameObjects) {
-            if (go instanceof Swordfish) {
+            if (go instanceof Enemy) {
             	try {
                     world.deleteGameObject(this);
-                    ((Swordfish) go).bulletHit();
+                    ((Enemy) go).bulletHit();
                 } catch (TileNotFoundException e) {
                     e.printStackTrace();
                 }

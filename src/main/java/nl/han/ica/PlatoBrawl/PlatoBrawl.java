@@ -1,21 +1,15 @@
 package nl.han.ica.PlatoBrawl;
 
-import com.sun.prism.image.ViewPort;
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
-import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Sound.Sound;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.EdgeFollowingViewport;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.PlatoBrawl.TextObject;
-import nl.han.ica.PlatoBrawl.Swordfish;
 import nl.han.ica.PlatoBrawl.tiles.BoardTiles;
 import processing.core.PApplet;
-import processing.core.PVector;
 
 /**
  * Created by timon on 29-3-2018.
@@ -26,10 +20,10 @@ public class PlatoBrawl extends GameEngine {
     private Sound backgroundSound;
 
     private TextObject dashboardText; // Dit is nu de ronde van de game
-    private Swordfish swordfish;
+    private Enemy enemy;
     private Player player;
     public int round; 
-    public int numberOfSwordfish;
+    public int enemyAmmount;
 
 
     public static void main(String[] args) {
@@ -93,9 +87,9 @@ public class PlatoBrawl extends GameEngine {
         player = new Player(this);
         addGameObject(player, 100, 100);
         round++;
-		swordfish = new Swordfish(this, player);
-        addGameObject(swordfish, 200, 200);
-        numberOfSwordfish++;
+		enemy = new Enemy(this, player);
+        addGameObject(enemy, 200, 200);
+        enemyAmmount++;
     }
 
 

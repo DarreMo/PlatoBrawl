@@ -9,13 +9,13 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 
 public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
 
-	Swordfish swordfish;
+	Enemy enemy;
 	
-	public EnemyBullet (Swordfish swordfish, PlatoBrawl world, float x, int f) {
+	public EnemyBullet (Enemy enemy, PlatoBrawl world, float x, int f) {
         super(new Sprite("src/main/java/nl/han/ica/PlatoBrawl/media/sprites/EnemyBullet.png"), 2, world, 25);
 		setxSpeed(x);
 		setCurrentFrameIndex(f);
-		this.swordfish = swordfish;
+		this.enemy = enemy;
 	}
 	
 	
@@ -35,7 +35,7 @@ public class EnemyBullet extends Bullet implements ICollidableWithGameObjects {
 
 	@Override
 	public void update() {
-		if (swordfish.getAlive() == false) {
+		if (enemy.getAlive() == false) {
             world.deleteGameObject(this);
 		}
 	}

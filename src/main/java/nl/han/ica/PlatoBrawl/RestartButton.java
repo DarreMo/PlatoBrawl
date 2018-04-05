@@ -21,7 +21,7 @@ public class RestartButton extends SpriteObject {
 		if (key == 'r') {
 			world.deleteGameObject(this);
 			world.round = 0;
-			world.numberOfSwordfish = 0;
+			world.enemyAmmount = 0;
 			world.setupGame();
 		}
 	}
